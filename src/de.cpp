@@ -57,9 +57,15 @@ void DE::Crossover(vector<vector<double>>solutions,
 void DE::Selection(vector<vector<double>>&solutions,
                     vector<vector<double>>trial_solutions)
 {
+    double temp;
     for(int i=0;i<this->mPopulation_size;i++)
-        if(Compute_Ackley(trial_solutions[i])<Compute_Ackley(solutions[i]))
+    {
+        temp=Compute_Ackley(trial_solutions[i]);
+        if(temp<Compute_Ackley(solutions[i]))
             solutions[i]=trial_solutions[i];
+        if(temp<this->best_val)
+            this->best_val=temp;
+    }
 }
 double DE::Compute_Ackley(vector<double>solution)
 {
@@ -105,6 +111,7 @@ void DE::Output(vector<vector<double>>solutions)
             filename_de<<solutions[i][j]<<" ";
         filename_de<<Compute_Ackley(solutions[i])<<endl;
     }
+    filename_de<<endl<<endl;
 }
 void DE::run()
 {
@@ -133,5 +140,6 @@ void DE::run()
     cout<<"#Cr:"<<this->mCr<<endl;
     cout<<"#Solutions:"<<endl;
     show(solutions);
+    cout<<"#Best value:"<<this->best_val<<endl;
     cout<<"#Cost Time:"<<temp<<"s"<<endl;
 }

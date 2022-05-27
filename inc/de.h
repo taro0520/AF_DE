@@ -29,6 +29,8 @@ private:
     double mF;
     double mCr;
 
+    double best_val=INT_MAX;
+
     int lower=-32;
     int upper=32;
 
