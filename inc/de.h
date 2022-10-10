@@ -2,12 +2,13 @@
 #define __DE_H__
 #include <iostream>
 #include <vector>
+#include <float.h>
 #define PI 3.14
 using namespace std;
 class DE
 {
 public:
-    DE(int population_size,int dimension,double f,double cr);
+    DE(int population_size,int dimension,int generation,double f,double cr);
     void run();
 private:
     void Initialize(vector<vector<double>>&solutions);
@@ -26,10 +27,11 @@ private:
 
     int mPopulation_size;
     int mDimension;
+    int mGeneration;
     double mF;
     double mCr;
 
-    double best_val=INT_MAX;
+    double best_val=DBL_MAX;
 
     int lower=-32;
     int upper=32;

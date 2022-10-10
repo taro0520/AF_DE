@@ -4,10 +4,11 @@
 #include <windows.h>
 #include <cmath>
 ofstream filename_de("result/data_de.txt");
-DE::DE(int population_size,int dimension,double f,double cr)
+DE::DE(int population_size,int dimension,int generation,double f,double cr)
 {
     this->mPopulation_size=population_size;
     this->mDimension=dimension;
+    this->mGeneration=generation;
     this->mF=f;
     this->mCr=cr;
 
@@ -77,8 +78,12 @@ double DE::Compute_Ackley(vector<double>solution)
         temp1+=solution[i]*solution[i];
         temp2+=cos(this->c*solution[i]);
     }
-    ans=-1*(this->a)*exp(-1*(this->b)*sqrt((double)temp1/this->mDimension)-exp((double)temp2/this->mDimension))+this->a+exp(1);
+    ans=-1*(this->a)*exp(-1*(this->b)*sqrt((double)temp1/this->mDimension))-exp((double)temp2/this->mDimension)+this->a+exp(1);
     return ans;
+
+    // for(int i=0;i<this->mDimension;i++)
+    //     temp1+=solution[i]*solution[i];
+    // return temp1;
 }
 int DE::rnd_i(int i,int a,int b)
 {
@@ -111,18 +116,22 @@ void DE::Output(vector<vector<double>>solutions)
             filename_de<<solutions[i][j]<<" ";
         filename_de<<Compute_Ackley(solutions[i])<<endl;
     }
-    filename_de<<endl<<endl;
+    // 2D output
+    //filename_de<<endl<<endl; 
+    // 3D output
+    filename_de<<endl;
 }
 void DE::run()
 {
     int temp;
-    int Evaluation=this->mDimension*10000;
+    int Generation=this->mGeneration;
     vector<vector<double>>solutions(this->mPopulation_size,vector<double>(this->mDimension,0));
     vector<vector<double>>mutation_solutions(this->mPopulation_size,vector<double>(this->mDimension,0));
     vector<vector<double>>trial_solutions(this->mPopulation_size,vector<double>(this->mDimension,0));
     DWORD star_time = GetTickCount();
     Initialize(solutions);
-    while(Evaluation--)
+
+    while(Generation--)
     {
         Output(solutions);
         Mutation(solutions,mutation_solutions);

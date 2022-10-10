@@ -10,10 +10,11 @@ int main(int argc, char** argv)
     { 
         int population_size=stoi(argv[2]);
         int dimension=stoi(argv[3]);
-        double f=stod(argv[4]);
-        double cr=stod(argv[5]);
+        int generation=stoi(argv[4]);
+        double f=stod(argv[5]);
+        double cr=stod(argv[6]);
 
-        DE demachine(population_size,dimension,f,cr);
+        DE demachine(population_size,dimension,generation,f,cr);
         demachine.run();
     }
 }

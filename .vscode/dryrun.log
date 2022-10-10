@@ -1,0 +1,7 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory 'c:/taro/code/AF_DE'
+g++ -I ./inc/ -g -Wall -O3 --std=c++11 -MMD -c src/main.cpp -o src/main.o 
+g++ -I ./inc/ -g -Wall -O3 --std=c++11 -MMD -c src/de.cpp -o src/de.o 
+g++ -I ./inc/ -g -Wall -O3 --std=c++11 src/main.o src/de.o -o main.exe
+make.exe: Leaving directory 'c:/taro/code/AF_DE'
+ 
